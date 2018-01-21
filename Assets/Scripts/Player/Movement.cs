@@ -15,8 +15,9 @@ public class Movement : MonoBehaviour {
     {
         checkInput();
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        print(mousePos);
+        print(GetComponent<Rigidbody>().velocity);
+        //Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //print(mousePos);
 
         //RaycastHit hit;
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -38,17 +39,12 @@ public class Movement : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += (transform.forward * 5);
+            //transform.position += (transform.forward * 5);
+            GetComponent<Rigidbody>().velocity += transform.forward * 2;
         }
-
-        if (Input.GetKey(KeyCode.Q))
-        {
-            transform.RotateAround(transform.position, transform.right * 10, 100 * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            transform.RotateAround(transform.position, -transform.right * 10, 100 * Time.deltaTime);
+        else//if (Input.GetKey(KeyCode.S))
+        {                        
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
 
         if (Input.GetKey(KeyCode.A))
@@ -59,6 +55,16 @@ public class Movement : MonoBehaviour {
         if (Input.GetKey(KeyCode.D))
         {
             transform.RotateAround(transform.position, -transform.forward * 10, 100 * Time.deltaTime);
+        }
+
+        if (Input.mousePosition.y > ((Screen.height / 2) + 50))
+        {
+            transform.RotateAround(transform.position, -transform.right, 50 * Time.deltaTime);
+        }
+
+        if (Input.mousePosition.y < ((Screen.height / 2) - 50))
+        {
+            transform.RotateAround(transform.position, transform.right, 50 * Time.deltaTime);
         }
     }
 }
